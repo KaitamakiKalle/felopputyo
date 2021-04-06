@@ -49,17 +49,13 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
   let whereTravelling = '';
 
   //Funktio jolla tiedon haku aloitetaan. Tiedot tuodaan näkyville visible muuttujan avulla
-  //---- setTimeout funktiota käytetään jotta vältytään arvon undefined tulostamiselta käyttäjälle
+  //----
   let visible = false;
   let error = false;
   const searchInfo = () => {
     search();
-    setTimeout(() => {
-      //Tarkistus onko objektissa sisältöä
-      if (!(Object.keys(CountryInfo).length === 0)) {
-        visible = true;
-      }
-    }, 800);
+
+    visible = true;
   };
 
   //----

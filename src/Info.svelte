@@ -27,6 +27,8 @@
       <div class="warning">Emme suosittele matkustamista maahan</div>
     {/if}
   </div>
+{:else if visible && Object.keys(CountryInfo).length === 0}
+  <p>Ladataan tietoja...</p>
 {:else if error}
   <div class="warning">
     Ei voitu hakea tietoja. Tarkista että maa on kirjoitettu oikein.
