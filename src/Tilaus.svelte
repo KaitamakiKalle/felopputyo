@@ -1,4 +1,5 @@
 <script>
+  // Tuntiesimerkkien Modal komponenttia on hyödynnetty työssä.
   import Modal from './Modal.svelte';
   import TextInput from './TextInput.svelte';
   import Button from './Button.svelte';

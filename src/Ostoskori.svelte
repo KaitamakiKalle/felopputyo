@@ -1,4 +1,5 @@
 <script>
+  // Tuntiesimerkkien Modal komponenttia on hyödynnetty työssä.
   import Modal from './Modal.svelte';
   import ostoskori from './ostoskori';
   import Button from './Button.svelte';

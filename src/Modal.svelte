@@ -1,4 +1,5 @@
 <script>
+  // Tuntiesimerkkien Modal komponenttia on hyödynnetty työssä.
   import Button from './Button.svelte';
   import { scale } from 'svelte/transition';
 </script>

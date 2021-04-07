@@ -4,3 +4,4 @@ Sovelluksen tavoite on antaa matkustajille mahdollisuus tarkistaa kohdemaan akti
 
 Ulkoiset lähteet:
 COVID19 API: https://covid19api.com/
+Tuntiesimerkkien modal komponentti
