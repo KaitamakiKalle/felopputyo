@@ -13,7 +13,7 @@
     added = true;
     setTimeout(() => {
       added = false;
-    }, 3000);
+    }, 1000);
   };
   //----
 

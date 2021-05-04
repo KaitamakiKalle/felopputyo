@@ -86,6 +86,7 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
         $ostoskori[
           $ostoskori.map((x) => x.tuotenumero).indexOf(e.detail.tuotenumero)
         ].maara;
+
       amount++;
       //poistetaan tuote
       ostoskori.update(() =>
