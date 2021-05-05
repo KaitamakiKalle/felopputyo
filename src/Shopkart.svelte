@@ -10,7 +10,7 @@
   const dispatch = createEventDispatcher();
   export let fullPrice;
   export let ordered;
-  let pay = false;
+  export let pay = false;
   const showOrder = () => {
     pay = true;
   };

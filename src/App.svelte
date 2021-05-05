@@ -120,6 +120,7 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
   let storeVisible = false;
   let shoppingKart = false;
   let ordered = false;
+  let pay = false;
   //---- funktiot ostoskorin, kaupan ja tilausikkunan näkyvyyden muuttamiseksi
   const toggleKart = () => {
     shoppingKart = !shoppingKart;
@@ -146,6 +147,7 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
       moreInfo: '',
     });
     fullPrice = 0;
+    pay = false;
     toggleKart();
     toggleStore();
   };
@@ -191,6 +193,7 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
         on:ordered={order}
         on:reset={reset}
         {ordered}
+        {pay}
       />
     {/if}
   </div>
