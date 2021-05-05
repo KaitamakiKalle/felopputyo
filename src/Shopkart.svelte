@@ -1,16 +1,16 @@
 <script>
   // Tuntiesimerkkien Modal komponenttia on hyödynnetty työssä.
   import Modal from './Modal.svelte';
-  import ostoskori from './ostoskori';
+  import shopkartStore from './shopkartStore';
   import Button from './Button.svelte';
-  import Order from './Tilaus.svelte';
+  import Order from './Order.svelte';
   import { flip } from 'svelte/animate';
   import { scale } from 'svelte/transition';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   export let fullPrice;
   export let ordered;
-  export let pay = false;
+  let pay = false;
   const showOrder = () => {
     pay = true;
   };
@@ -20,7 +20,7 @@
   <Modal on:click>
     <h2 slot="header">Ostoskori</h2>
 
-    {#each $ostoskori as x (x.tuotenumero)}
+    {#each $shopkartStore as x (x.tuotenumero)}
       <div id="tuote" animate:flip transition:scale>
         <span>{x.tuote}, määrä: {x.maara}</span>
         <span>{x.hinta}€/kpl</span>
@@ -36,7 +36,7 @@
     {/each}
     <p>Hinta: {fullPrice}€</p>
     <div>
-      <Button on:click={showOrder} disabled={$ostoskori.length === 0}
+      <Button on:click={showOrder} disabled={$shopkartStore.length === 0}
         >Tilaa</Button
       >
     </div>

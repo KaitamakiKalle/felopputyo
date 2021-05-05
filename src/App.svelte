@@ -1,9 +1,9 @@
 <script>
-  import Kauppa from './Kauppa.svelte';
-  import Ostoskori from './Ostoskori.svelte';
-  import ostoskori from './ostoskori';
-  import tuoteVarasto from './tuoteVarasto';
-  import orderInfo from './tilaajaTiedot';
+  import Store from './Store.svelte';
+  import Shopkart from './Shopkart.svelte';
+  import shopkartStore from './shopkartStore';
+  import productStore from './productStore';
+  import orderInfo from './orderInfo';
   import Button from './Button.svelte';
   import Info from './Info.svelte';
   import Header from './Header.svelte';
@@ -69,34 +69,37 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
   $: fullPrice = 0;
 
   //---- funktio tuotteen lisäämiseksi ostoskoriin.
-  const addToCart = (e) => {
+  const addToKart = (e) => {
     // Jos lisätään toinen kappale samaa tuotetta tuotteen määrää kasvatetaan
     if (
-      $ostoskori.map((x) => x.tuotenumero).indexOf(e.detail.tuotenumero) !== -1
+      $shopkartStore.map((x) => x.tuotenumero).indexOf(e.detail.tuotenumero) !==
+      -1
     ) {
       //ensin lasketaan tuotteen nykyinen määrä ja kasvatetaan sitä yhdellä
       let amount =
-        $ostoskori[
-          $ostoskori.map((x) => x.tuotenumero).indexOf(e.detail.tuotenumero)
+        $shopkartStore[
+          $shopkartStore.map((x) => x.tuotenumero).indexOf(e.detail.tuotenumero)
         ].maara;
 
       amount++;
       //poistetaan tuote
-      ostoskori.update(() =>
-        $ostoskori.filter((item) => item.tuotenumero !== e.detail.tuotenumero)
+      shopkartStore.update(() =>
+        $shopkartStore.filter(
+          (item) => item.tuotenumero !== e.detail.tuotenumero
+        )
       );
       // Lisätään tuote uudelleen päivitetyllä määrällä
-      ostoskori.update(() => [
-        ...$ostoskori,
-        { ...$tuoteVarasto[e.detail.tuotenumero], maara: amount },
+      shopkartStore.update(() => [
+        ...$shopkartStore,
+        { ...$productStore[e.detail.tuotenumero], maara: amount },
       ]);
       //lisätään tuotteen hinta kokonaishintaan
       fullPrice += e.detail.hinta;
     } // Jos taas tuote on uusi lisätään uusi tuote
     else {
-      ostoskori.update(() => [
-        ...$ostoskori,
-        { ...$tuoteVarasto[e.detail.tuotenumero], maara: 1 },
+      shopkartStore.update(() => [
+        ...$shopkartStore,
+        { ...$productStore[e.detail.tuotenumero], maara: 1 },
       ]);
       //lisätään tuotteen hinta kokonaishintaan
       fullPrice += e.detail.hinta;
@@ -106,8 +109,8 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
 
   //---- Funktio tuotteen poistamiseksi ostoskorista
   const deleteItem = (e) => {
-    ostoskori.update(() =>
-      $ostoskori.filter((item) => item.tuotenumero !== e.detail.tuotenumero)
+    shopkartStore.update(() =>
+      $shopkartStore.filter((item) => item.tuotenumero !== e.detail.tuotenumero)
     );
     fullPrice = fullPrice - e.detail.hinta * e.detail.maara;
   };
@@ -134,7 +137,7 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
 
   //---- Funktio joka resetoi tilaustiedot ja vie käyttäjän alkunäkymään
   const reset = () => {
-    ostoskori.set([]);
+    shopkartStore.set([]);
     orderInfo.set({
       name: '',
       phone: '',
@@ -173,15 +176,15 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
         <Button on:click={toggleKart}>Näytä ostoskori</Button>
       </div>
     {:else}
-      <Kauppa
-        on:toShopkart={addToCart}
+      <Store
+        on:addToKart={addToKart}
         on:shoppingKart={toggleKart}
         on:storeVisible={toggleStore}
       />
     {/if}
 
     {#if shoppingKart}
-      <Ostoskori
+      <Shopkart
         {fullPrice}
         on:click={toggleKart}
         on:deleteItem={deleteItem}

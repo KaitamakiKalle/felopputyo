@@ -3,8 +3,8 @@
   import Modal from './Modal.svelte';
   import TextInput from './TextInput.svelte';
   import Button from './Button.svelte';
-  import ostoskori from './ostoskori';
-  import orderInfo from './tilaajaTiedot.js';
+  import shopkartStore from './shopkartStore';
+  import orderInfo from './orderInfo.js';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
@@ -119,7 +119,7 @@
       <span>Sähköposti: {$orderInfo.email}</span>
       <span>Osoite: {$orderInfo.adress}</span>
       <h3>Tuotteet</h3>
-      {#each $ostoskori as product}
+      {#each $shopkartStore as product}
         <span>{product.tuote}, {product.maara}/kpl: {product.hinta}€</span>
       {/each}
       <h3>Lisätiedot</h3>

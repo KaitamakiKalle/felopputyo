@@ -1,5 +1,5 @@
 <script>
-  import tuoteVarasto from './tuoteVarasto';
+  import productStore from './productStore';
   import Button from './Button.svelte';
   import { scale, fly } from 'svelte/transition';
   import { elasticOut } from 'svelte/easing';
@@ -27,14 +27,14 @@
   //----
 </script>
 
-{#each $tuoteVarasto as x}
+{#each $productStore as x}
   <div id="tuote" transition:scale>
     <span class="background" id="nimi">{x.tuote}</span>
     <span class="background">{x.hinta}€</span>
     <span>
       <Button
         on:click={() => {
-          dispatch('toShopkart', x);
+          dispatch('addToKart', x);
           add();
         }}>Lisää ostoskoriin</Button
       >
