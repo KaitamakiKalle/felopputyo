@@ -30,18 +30,11 @@ api josta tiedot haetaan antaa statuksen 200 eli ok vaikka haussa olisi virhe.
           throw new Error('Ei voitu hakea tietoja');
         } else {
           error = false;
+          // Koska api palauttaa taulukon täynnä objekteja haluamme ainoastaan maan viimeisimmät tiedot.
           CountryInfo = data[data.length - 1];
         }
       })
       .catch((err) => console.log(err));
-
-    // const response = await fetch(
-    //   `https://api.covid19api.com/live/country/${whereTravelling.toLowerCase()}`
-    // );
-
-    // let covidInfo = await response.json();
-    // Koska api palauttaa taulukon täynnä objekteja haluamme ainoastaan maan viimeisimmät tiedot.
-    // CountryInfo = covidInfo[covidInfo.length - 1];
   };
   //----
 
